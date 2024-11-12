@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit converter</title>
+</head>
+
+<body>
+  <main>
+    <div class="from-container">
+      <div>From:</div>
+      <input type="number" name="value">
+      <select name="unit">
+        <option value="m">meters</option>
+        <option value="km">kilometers</option>
+        <option value="ft">feet</option>
+        <option value="mi">miles</option>
+      </select>
+    </div>
+    <div class="to-container">
+      <div>To:</div>
+      <input type="number" name="value" readonly>
+      <select name="unit">
+        <option value="m">meters</option>
+        <option value="km">kilometers</option>
+        <option value="ft">feet</option>
+        <option value="mi">miles</option>
+      </select>
+    </div>
+  </main>
+
+  <script type="module" src="./scripts/main.js"></script>
+</body>
+
+</html>
