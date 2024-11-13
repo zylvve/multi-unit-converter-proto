@@ -6,6 +6,8 @@ buildMain();
 
 function buildMain() {
   const main = document.querySelector("main");
+  main.append(buildCategorySelector());
+
   const inputs = document.createElement("div");
   inputs.setAttribute("id", "inputs");
   main.append(inputs);
@@ -35,6 +37,37 @@ function buildMain() {
   addToContainer();
 }
 
+function buildCategorySelector() {
+  const select = document.createElement("select");
+  select.setAttribute("name", "category");
+  select.classList.add("category-selector");
+  select.innerHTML = buildCategoryOptions();
+  select.addEventListener("change", updateUnitSelectors);
+
+  return select;
+}
+
+function updateUnitSelectors(event) {
+  const unitSelectors = document.querySelectorAll(".unit-selector");
+
+  for (const select of unitSelectors) {
+    select.innerHTML = buildUnitOptions(event.target.value);
+  }
+}
+
+function buildCategoryOptions() {
+  let option, options = "";
+
+  for (const category in units) {
+    option = `<option value=${category}>
+      ${category}
+    </option>`
+    options += option;
+  }
+
+  return options;
+}
+
 function buildInputContainer(direction) {
   const container = document.createElement("div");
   container.setAttribute("class", direction + "-container");
@@ -48,7 +81,10 @@ function buildInputContainer(direction) {
 
   const select = document.createElement("select");
   select.setAttribute("name", "unit");
-  select.innerHTML = buildOptions("length");
+  select.classList.add("unit-selector");
+  select.innerHTML = buildUnitOptions(
+    document.querySelector(".category-selector").value
+  );
 
   container.append(div, input, select);
   
@@ -73,7 +109,7 @@ function changeActive(event) {
   event.currentTarget.classList.add("active");
 }
 
-function buildOptions(category) {
+function buildUnitOptions(category) {
   let option, options = "";
 
   for (const unit in units[category]) {
@@ -87,12 +123,14 @@ function buildOptions(category) {
 }
 
 function updateOutput() {
+  const category = document.querySelector(".category-selector").value;
+
   for (const toAmount of outputFields) {
     const toUnitSelect = Array.from(toAmount.parentNode.childNodes).find(node => node.nodeName == "SELECT");
     const fromAmount = document.querySelector(".from-container.active input")
     const fromUnitSelect = document.querySelector(".from-container.active select")
     toAmount.value = fromAmount.value 
-     * units.length[fromUnitSelect.value].value 
-     / units.length[toUnitSelect.value].value;
+     * units[category][fromUnitSelect.value].value 
+     / units[category][toUnitSelect.value].value;
   }
 }

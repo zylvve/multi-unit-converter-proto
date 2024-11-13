@@ -20,6 +20,28 @@ const units = {
       pluralName: "miles",
       value: 1609.344
     },
+  },
+  time: {
+    s: {
+      name: "second",
+      pluralName: "seconds",
+      value: 1,
+    },
+    m: {
+      name: "minute",
+      pluralName: "minutes",
+      value: 60,
+    },
+    h: {
+      name: "hour",
+      pluralName: "hours",
+      value: 3600,
+    },
+    ms: {
+      name: "millisecond",
+      pluralName: "milliseconds",
+      value: 0.001,
+    },
   }
 }
 
