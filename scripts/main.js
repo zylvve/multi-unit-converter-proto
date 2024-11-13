@@ -1,24 +1,8 @@
 import units from "./units.js"
 
+const outputFields = [];
+
 buildMain();
-
-const fromAmount = document.querySelector(".from-container input")
-const toAmount = document.querySelector(".to-container input")
-const unitSelects = document.querySelectorAll("main select");
-const fromUnitSelect = document.querySelector(".from-container select");
-const toUnitSelect = document.querySelector(".to-container select");
-
-fromAmount.addEventListener("input", updateOutput);
-for (const select of unitSelects) {
-  select.addEventListener("change", updateOutput);
-}
-
-const options = buildOptions("length");
-for (const select of unitSelects) {
-  for (const option of options) {
-    select.append(option.cloneNode(true));
-  }
-}
 
 function buildMain() {
   const main = document.querySelector("main");
@@ -33,10 +17,10 @@ function buildMain() {
   const addToContainerButton = document.createElement("button");
 
   const addFromContainer = () => {
-    addFromContainerButton.before(buildInputContainer("from"))
+    addFromContainerButton.before(buildInputContainer("from"));
   };
   const addToContainer = () => {
-    addToContainerButton.before(buildInputContainer("to"))
+    addToContainerButton.before(buildInputContainer("to"));
   };
   
   addFromContainerButton.addEventListener("click", addFromContainer);
@@ -55,31 +39,60 @@ function buildInputContainer(direction) {
   const container = document.createElement("div");
   container.setAttribute("class", direction + "-container");
   
-  const content = `
-    <div>${direction}:</div>
-    <input type="number" name="value"></input>
-    <select name="unit"></select>
-  `
+  const div = document.createElement("div");
+  div.innerHTML = direction;
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "number");
+  input.setAttribute("name", "value");
+
+  const select = document.createElement("select");
+  select.setAttribute("name", "unit");
+  select.innerHTML = buildOptions("length");
+
+  container.append(div, input, select);
   
-  container.insertAdjacentHTML("afterbegin", content);
+  if (direction === "from") {
+    container.addEventListener("click", changeActive);
+    container.addEventListener("click", updateOutput);
+    input.addEventListener("input", updateOutput);
+  } else if (direction === "to") {
+    outputFields.push(input);
+  }
+
+  select.addEventListener("change", updateOutput);
+
   return container;
 }
 
+function changeActive(event) {
+  const activeFrom = document.querySelector(".from-container.active");
+  if (activeFrom) {
+    activeFrom.classList.remove("active")
+  }
+  event.currentTarget.classList.add("active");
+}
+
 function buildOptions(category) {
-  let option, options = [];
+  let option, options = "";
 
   for (const unit in units[category]) {
-    option = document.createElement("option");
-    option.setAttribute("value", unit);
-    option.innerHTML = units[category][unit].pluralName;
-    options.push(option);
+    option = `<option value=${unit}>
+      ${units[category][unit].pluralName}
+    </option>`
+    options += option;
   }
 
   return options;
 }
 
 function updateOutput() {
-  toAmount.value = fromAmount.value 
-   * units.length[fromUnitSelect.value].value 
-   / units.length[toUnitSelect.value].value;
+  for (const toAmount of outputFields) {
+    const toUnitSelect = Array.from(toAmount.parentNode.childNodes).find(node => node.nodeName == "SELECT");
+    const fromAmount = document.querySelector(".from-container.active input")
+    const fromUnitSelect = document.querySelector(".from-container.active select")
+    toAmount.value = fromAmount.value 
+     * units.length[fromUnitSelect.value].value 
+     / units.length[toUnitSelect.value].value;
+  }
 }
