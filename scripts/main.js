@@ -1,28 +1,46 @@
 import units from "./units.js"
 
-const outputFields = [];
-
 buildMain();
 
 function buildMain() {
   const main = document.querySelector("main");
   main.append(buildCategorySelector());
+  for (const category in units) {
+    main.append(buildCategorySection(category));
+  }
+}
+
+function buildCategorySelector() {
+  const select = document.createElement("select");
+  select.setAttribute("name", "category");
+  select.classList.add("category-selector");
+  select.innerHTML = buildCategoryOptions();
+  select.addEventListener("change", changeSection);
+
+  return select;
+}
+
+function buildCategorySection(category) {
+  const section = document.createElement("section");
+  section.classList.add('category-section');
+  section.setAttribute("id", category);
+  section.hidden = (category !== document.querySelector(".category-selector").value);
 
   const inputs = document.createElement("div");
   inputs.setAttribute("id", "inputs");
-  main.append(inputs);
+  section.append(inputs);
   const outputs = document.createElement("div");
   outputs.setAttribute("id", "outputs");
-  main.append(outputs);
+  section.append(outputs);
 
   const addFromContainerButton = document.createElement("button");
   const addToContainerButton = document.createElement("button");
 
   const addFromContainer = () => {
-    addFromContainerButton.before(buildInputContainer("from"));
+    addFromContainerButton.before(buildInputContainer("from", category));
   };
   const addToContainer = () => {
-    addToContainerButton.before(buildInputContainer("to"));
+    addToContainerButton.before(buildInputContainer("to", category));
   };
   
   addFromContainerButton.addEventListener("click", addFromContainer);
@@ -35,23 +53,13 @@ function buildMain() {
   outputs.append(addToContainerButton);
   addFromContainer();
   addToContainer();
+  
+  return section;
 }
 
-function buildCategorySelector() {
-  const select = document.createElement("select");
-  select.setAttribute("name", "category");
-  select.classList.add("category-selector");
-  select.innerHTML = buildCategoryOptions();
-  select.addEventListener("change", updateUnitSelectors);
-
-  return select;
-}
-
-function updateUnitSelectors(event) {
-  const unitSelectors = document.querySelectorAll(".unit-selector");
-
-  for (const select of unitSelectors) {
-    select.innerHTML = buildUnitOptions(event.target.value);
+function changeSection(event) {
+  for (const section of document.querySelectorAll("section.category-section")) {
+    section.hidden = (section.getAttribute("id") !== event.target.value);
   }
 }
 
@@ -68,7 +76,7 @@ function buildCategoryOptions() {
   return options;
 }
 
-function buildInputContainer(direction) {
+function buildInputContainer(direction, category) {
   const container = document.createElement("div");
   container.setAttribute("class", direction + "-container");
   
@@ -82,9 +90,7 @@ function buildInputContainer(direction) {
   const select = document.createElement("select");
   select.setAttribute("name", "unit");
   select.classList.add("unit-selector");
-  select.innerHTML = buildUnitOptions(
-    document.querySelector(".category-selector").value
-  );
+  select.innerHTML = buildUnitOptions(category);
 
   container.append(div, input, select);
   
@@ -92,9 +98,7 @@ function buildInputContainer(direction) {
     container.addEventListener("click", changeActive);
     container.addEventListener("click", updateOutput);
     input.addEventListener("input", updateOutput);
-  } else if (direction === "to") {
-    outputFields.push(input);
-  }
+  } 
 
   select.addEventListener("change", updateOutput);
 
@@ -124,12 +128,13 @@ function buildUnitOptions(category) {
 
 function updateOutput() {
   const category = document.querySelector(".category-selector").value;
-
-  for (const toAmount of outputFields) {
-    const toUnitSelect = Array.from(toAmount.parentNode.childNodes).find(node => node.nodeName == "SELECT");
-    const fromAmount = document.querySelector(".from-container.active input")
+  const outputFields = document.querySelectorAll(`section#${category} .to-container input`);
+  
+  for (const toField of outputFields) {
+    const toUnitSelect = Array.from(toField.parentNode.childNodes).find(node => node.nodeName == "SELECT");
+    const fromField = document.querySelector(".from-container.active input")
     const fromUnitSelect = document.querySelector(".from-container.active select")
-    toAmount.value = fromAmount.value 
+    toField.value = fromField.value 
      * units[category][fromUnitSelect.value].value 
      / units[category][toUnitSelect.value].value;
   }
