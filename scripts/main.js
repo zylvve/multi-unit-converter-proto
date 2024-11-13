@@ -22,15 +22,40 @@ for (const select of unitSelects) {
 
 function buildMain() {
   const main = document.querySelector("main");
-  main.append(buildInputContainer("from"));
-  main.append(buildInputContainer("to"));
+  const inputs = document.createElement("div");
+  inputs.setAttribute("id", "inputs");
+  main.append(inputs);
+  const outputs = document.createElement("div");
+  outputs.setAttribute("id", "outputs");
+  main.append(outputs);
+
+  const addFromContainerButton = document.createElement("button");
+  const addToContainerButton = document.createElement("button");
+
+  const addFromContainer = () => {
+    addFromContainerButton.before(buildInputContainer("from"))
+  };
+  const addToContainer = () => {
+    addToContainerButton.before(buildInputContainer("to"))
+  };
+  
+  addFromContainerButton.addEventListener("click", addFromContainer);
+  addFromContainerButton.innerHTML = "+";
+
+  addToContainerButton.addEventListener("click", addToContainer);
+  addToContainerButton.innerHTML = "+";
+  
+  inputs.append(addFromContainerButton);
+  outputs.append(addToContainerButton);
+  addFromContainer();
+  addToContainer();
 }
 
 function buildInputContainer(direction) {
-  let container = document.createElement("div");
+  const container = document.createElement("div");
   container.setAttribute("class", direction + "-container");
   
-  let content = `
+  const content = `
     <div>${direction}:</div>
     <input type="number" name="value"></input>
     <select name="unit"></select>
