@@ -4,27 +4,36 @@ buildMain();
 
 function buildMain() {
   const main = document.querySelector("main");
-  main.append(buildCategorySelector());
+  main.append(buildCategoryMenu());
   for (const category in units) {
     main.append(buildCategorySection(category));
   }
 }
 
-function buildCategorySelector() {
-  const select = document.createElement("select");
-  select.setAttribute("name", "category");
-  select.classList.add("category-selector");
-  select.innerHTML = buildCategoryOptions();
-  select.addEventListener("change", changeSection);
+function buildCategoryMenu() {
+  const menu = document.createElement("menu");
+  menu.setAttribute("id", "category-menu");
+  menu.setAttribute("data-active-category", "length");
 
-  return select;
+  let li;
+  for (const category in units) {
+    li = document.createElement("li");
+    li.setAttribute("data-category", category);
+    li.innerHTML = category;
+    
+    li.addEventListener("click", changeSection);
+
+    menu.append(li);
+  }
+
+  return menu;
 }
 
 function buildCategorySection(category) {
   const section = document.createElement("section");
   section.classList.add('category-section');
   section.setAttribute("id", category);
-  section.hidden = (category !== document.querySelector(".category-selector").value);
+  section.hidden = (category !== document.querySelector("#category-menu").getAttribute("data-active-category"));
 
   const inputs = document.createElement("div");
   inputs.setAttribute("id", "inputs");
@@ -58,22 +67,13 @@ function buildCategorySection(category) {
 }
 
 function changeSection(event) {
+  const newCategory = event.target.getAttribute("data-category");
+  document.querySelector("#category-menu").setAttribute(
+    "data-active-category", newCategory
+  );
   for (const section of document.querySelectorAll("section.category-section")) {
-    section.hidden = (section.getAttribute("id") !== event.target.value);
+    section.hidden = (section.getAttribute("id") !== newCategory);
   }
-}
-
-function buildCategoryOptions() {
-  let option, options = "";
-
-  for (const category in units) {
-    option = `<option value=${category}>
-      ${category}
-    </option>`
-    options += option;
-  }
-
-  return options;
 }
 
 function buildInputContainer(direction, category) {
@@ -138,7 +138,7 @@ function buildUnitOptions(category) {
 }
 
 function updateOutput() {
-  const category = document.querySelector(".category-selector").value;
+  const category = document.querySelector("#category-menu").getAttribute("data-active-category");
   const outputFields = document.querySelectorAll(`section#${category} .to-container input`);
   
   for (const toField of outputFields) {
