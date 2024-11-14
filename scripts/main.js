@@ -112,10 +112,6 @@ function buildInputContainer(direction, category) {
   return container;
 }
 
-function deleteInputContainer(event) {
-  event.currentTarget.parentNode.remove();
-}
-
 function changeActive(event) {
   const activeFrom = document.querySelector(".from-container.active");
   if (activeFrom) {
