@@ -119,6 +119,7 @@ function buildInputContainer(direction, category) {
     container.addEventListener("click", updateOutput);
     input.addEventListener("input", updateOutput);
   } 
+  input.readOnly = (direction === "to");
 
   select.addEventListener("change", updateOutput);
 
