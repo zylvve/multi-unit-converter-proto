@@ -40,10 +40,13 @@ function buildCategorySection(category) {
   section.hidden = (category !== document.querySelector("#category-menu").getAttribute("data-active-category"));
 
   const inputs = document.createElement("div");
-  inputs.setAttribute("id", "inputs");
+  inputs.classList.add("inputs-container");
+  inputs.insertAdjacentHTML("afterbegin", "<span>From:</span>");
   section.append(inputs);
+
   const outputs = document.createElement("div");
-  outputs.setAttribute("id", "outputs");
+  outputs.classList.add("outputs-container");
+  outputs.insertAdjacentHTML("afterbegin", "<span>To:</span>");
   section.append(outputs);
 
   const addFromContainerButton = document.createElement("button");
@@ -93,9 +96,6 @@ function buildInputContainer(direction, category) {
   const container = document.createElement("div");
   container.setAttribute("class", direction + "-container");
   
-  const div = document.createElement("div");
-  div.innerHTML = direction;
-
   const input = document.createElement("input");
   input.setAttribute("type", "number");
   input.setAttribute("name", "value");
@@ -112,7 +112,7 @@ function buildInputContainer(direction, category) {
     event.stopPropagation();
   });
 
-  container.append(div, input, select, deleteButton);
+  container.append(input, select, deleteButton);
   
   if (direction === "from") {
     container.addEventListener("click", changeActive);
