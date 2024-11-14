@@ -11,15 +11,19 @@ function buildMain() {
 }
 
 function buildCategoryMenu() {
+  const defaultCategory = "length";
   const menu = document.createElement("menu");
   menu.setAttribute("id", "category-menu");
-  menu.setAttribute("data-active-category", "length");
+  menu.setAttribute("data-active-category", defaultCategory);
 
   let li;
   for (const category in units) {
     li = document.createElement("li");
     li.setAttribute("data-category", category);
     li.innerHTML = category;
+    if (category === defaultCategory) {
+      li.classList.add("active-menu-item");
+    }
     
     li.addEventListener("click", changeSection);
 
@@ -68,9 +72,18 @@ function buildCategorySection(category) {
 
 function changeSection(event) {
   const newCategory = event.target.getAttribute("data-category");
-  document.querySelector("#category-menu").setAttribute(
-    "data-active-category", newCategory
-  );
+  
+  const menu = document.querySelector("#category-menu");
+  menu.setAttribute("data-active-category", newCategory);
+  
+  for (const li of menu.childNodes) {
+    if (li.getAttribute("data-category") === newCategory) {
+      li.classList.add("active-menu-item")
+    } else {
+      li.classList.remove("active-menu-item")
+    }
+  }
+  
   for (const section of document.querySelectorAll("section.category-section")) {
     section.hidden = (section.getAttribute("id") !== newCategory);
   }
