@@ -20,7 +20,8 @@ function buildCategoryMenu() {
   for (const category in units) {
     li = document.createElement("li");
     li.setAttribute("data-category", category);
-    li.innerHTML = category;
+    li.insertAdjacentHTML("afterbegin", `<img src="./svg/${category}.svg" alt="${category}"></img>`);
+
     if (category === defaultCategory) {
       li.classList.add("active-menu-item");
     }
@@ -74,7 +75,7 @@ function buildCategorySection(category) {
 }
 
 function changeSection(event) {
-  const newCategory = event.target.getAttribute("data-category");
+  const newCategory = event.currentTarget.getAttribute("data-category");
   
   const menu = document.querySelector("#category-menu");
   menu.setAttribute("data-active-category", newCategory);

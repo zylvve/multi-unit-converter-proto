@@ -4,9 +4,24 @@ main {
   align-items: center;
 }
 
-menu#category-menu {
+#category-menu {
   display: flex;
   gap: 30px;
+  list-style: none;
+}
+
+#category-menu img {
+  width: 50px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#category-menu img:hover {
+  background-color: lightblue;
+}
+
+#category-menu .active-menu-item img {
+  background-color: lightgreen;
 }
 
 section.category-section {
