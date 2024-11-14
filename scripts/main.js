@@ -92,7 +92,14 @@ function buildInputContainer(direction, category) {
   select.classList.add("unit-selector");
   select.innerHTML = buildUnitOptions(category);
 
-  container.append(div, input, select);
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = '-';
+  deleteButton.addEventListener("click", (event) => {
+    event.currentTarget.parentNode.remove();
+    event.stopPropagation();
+  });
+
+  container.append(div, input, select, deleteButton);
   
   if (direction === "from") {
     container.addEventListener("click", changeActive);
@@ -103,6 +110,10 @@ function buildInputContainer(direction, category) {
   select.addEventListener("change", updateOutput);
 
   return container;
+}
+
+function deleteInputContainer(event) {
+  event.currentTarget.parentNode.remove();
 }
 
 function changeActive(event) {
