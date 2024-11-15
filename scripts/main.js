@@ -154,11 +154,17 @@ function updateOutput() {
   const outputFields = document.querySelectorAll(`section#${category} .to-container input`);
   
   for (const toField of outputFields) {
-    const toUnitSelect = Array.from(toField.parentNode.childNodes).find(node => node.nodeName == "SELECT");
-    const fromField = document.querySelector(".from-container.active input")
-    const fromUnitSelect = document.querySelector(".from-container.active select")
-    toField.value = fromField.value 
-     * units[category][fromUnitSelect.value].value 
-     / units[category][toUnitSelect.value].value;
+    const toUnitSelectValue = Array.from(toField.parentNode.childNodes).find(node => node.nodeName == "SELECT").value;
+    const fromUnitSelectValue = document.querySelector(".from-container.active select").value;
+
+    const fromAmount = document.querySelector(".from-container.active input").value;
+
+    const fromValue = units[category][fromUnitSelectValue].value;
+    const toValue = units[category][toUnitSelectValue].value;
+
+    const fromZero = units[category][fromUnitSelectValue].zero ?? 0;
+    const toZero = units[category][toUnitSelectValue].zero ?? 0;
+    
+    toField.value = ((fromZero + fromAmount * fromValue) - toZero) / toValue;
   }
 }

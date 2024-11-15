@@ -125,6 +125,38 @@ const units = {
       value: 1609.344
     },
   },
+  weight: {
+    g: {
+      name: "gram",
+      pluralName: "grams",
+      value: 1,
+    },
+    mg: {
+      name: "milligram",
+      pluralName: "milligrams",
+      value: 0.001,
+    },
+    kg: {
+      name: "kilogram",
+      pluralName: "kilograms",
+      value: 1000,
+    },
+    ton: {
+      name: "ton",
+      pluralName: "tons",
+      value: 1000000,
+    },
+    oz: {
+      name: "ounce",
+      pluralName: "ounces",
+      value: 28.3495,
+    },
+    lb: {
+      name: "pound",
+      pluralName: "pounds",
+      value: 453.592,
+    },
+  },
   time: {
     s: {
       name: "second",
@@ -157,36 +189,23 @@ const units = {
       value: 604800,
     },
   },
-  weight: {
-    g: {
-      name: "gram",
-      pluralName: "grams",
+  temperature: {
+    K: {
+      name: "kelvin",
+      pluralName: "kelvin",
       value: 1,
     },
-    mg: {
-      name: "milligram",
-      pluralName: "milligrams",
-      value: 0.001,
+    C: {
+      name: "celsius",
+      pluralName: "celsius",
+      value: 1,
+      zero: 273.15,
     },
-    kg: {
-      name: "kilogram",
-      pluralName: "kilograms",
-      value: 1000,
-    },
-    ton: {
-      name: "ton",
-      pluralName: "tons",
-      value: 1000000,
-    },
-    oz: {
-      name: "ounce",
-      pluralName: "ounces",
-      value: 28.3495,
-    },
-    lb: {
-      name: "pound",
-      pluralName: "pounds",
-      value: 453.592,
+    F: {
+      name: "fahrenheit",
+      pluralName: "fahrenheit",
+      value: 5/9,
+      zero: 255.37,
     },
   },
 }
