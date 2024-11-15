@@ -99,7 +99,7 @@ function buildInputContainer(direction, category) {
   
   const input = document.createElement("input");
   input.setAttribute("type", "number");
-  input.setAttribute("name", "value");
+  input.setAttribute("name", "amount");
 
   const select = document.createElement("select");
   select.setAttribute("name", "unit");
@@ -107,7 +107,8 @@ function buildInputContainer(direction, category) {
   select.innerHTML = buildUnitOptions(category);
 
   const deleteButton = document.createElement("button");
-  deleteButton.innerHTML = '-';
+  deleteButton.innerHTML = '✖';
+  deleteButton.classList.add("delete-button");
   deleteButton.addEventListener("click", (event) => {
     event.currentTarget.parentNode.remove();
     event.stopPropagation();
@@ -139,9 +140,7 @@ function buildUnitOptions(category) {
   let option, options = "";
 
   for (const unit in units[category]) {
-    option = `<option value=${unit}>
-      ${units[category][unit].pluralName}
-    </option>`
+    option = `<option value=${unit} label=${unit} title=${units[category][unit].pluralName}></option>`
     options += option;
   }
 

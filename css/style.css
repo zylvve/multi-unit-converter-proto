@@ -33,7 +33,7 @@ section.category-section {
 .outputs-container {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 400px;
   gap: 10px;
 }
 
@@ -41,7 +41,7 @@ section.category-section {
 .to-container {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 12px;
   border-radius: 20px;
 }
 
@@ -57,6 +57,48 @@ section.category-section {
 .to-container {
   border: 3px solid blue;
   background-color: lightblue;
+}
+
+.category-section input {
+  font-size: 1.5em;
+  width: 250px;
+  border: none;
+  outline: none;
+}
+
+/* for Firefox */
+input[type=number] { 
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0; 
+}
+
+/* for Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+select.unit-selector {
+  background-color: white;
+  font-size: 1.5em;
+  padding: 6px;
+  width: 100px;
+  border: none;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  outline: none;
+}
+
+button.delete-button {
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+button.delete-button:hover {
+  color: red;
 }
 
 [hidden]{
