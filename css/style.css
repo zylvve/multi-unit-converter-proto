@@ -8,6 +8,7 @@ main {
   display: flex;
   gap: 30px;
   list-style: none;
+  padding: 20px;
 }
 
 #category-menu img {
@@ -27,6 +28,7 @@ main {
 section.category-section {
   display: flex;
   gap: 50px;
+  padding: 20px;
 }
 
 .inputs-container,
@@ -35,6 +37,15 @@ section.category-section {
   flex-direction: column;
   width: 400px;
   gap: 10px;
+}
+
+.inputs-container>span,
+.outputs-container>span {
+  font-size: 2em;
+  align-self: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .from-container,
@@ -99,6 +110,24 @@ button.delete-button {
 
 button.delete-button:hover {
   color: red;
+}
+
+button.add-button {
+  width: 50px;
+  height: 50px;
+  align-self: center;
+  background-color: white;
+  border: none;
+  outline: none;
+  font-size: 2em;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 5px;
+  line-height: 0;
+}
+
+button.add-button:hover {
+  background-color: lightblue;
 }
 
 [hidden]{

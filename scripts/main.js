@@ -42,12 +42,12 @@ function buildCategorySection(category) {
 
   const inputs = document.createElement("div");
   inputs.classList.add("inputs-container");
-  inputs.insertAdjacentHTML("afterbegin", "<span>From:</span>");
+  inputs.insertAdjacentHTML("afterbegin", "<span>FROM</span>");
   section.append(inputs);
 
   const outputs = document.createElement("div");
   outputs.classList.add("outputs-container");
-  outputs.insertAdjacentHTML("afterbegin", "<span>To:</span>");
+  outputs.insertAdjacentHTML("afterbegin", "<span>TO</span>");
   section.append(outputs);
 
   const addFromContainerButton = document.createElement("button");
@@ -62,9 +62,11 @@ function buildCategorySection(category) {
   
   addFromContainerButton.addEventListener("click", addFromContainer);
   addFromContainerButton.innerHTML = "+";
+  addFromContainerButton.classList.add("add-button");
 
   addToContainerButton.addEventListener("click", addToContainer);
   addToContainerButton.innerHTML = "+";
+  addToContainerButton.classList.add("add-button");
   
   inputs.append(addFromContainerButton);
   outputs.append(addToContainerButton);
