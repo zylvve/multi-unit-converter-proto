@@ -50,37 +50,37 @@ const units = {
     mm2: {
       name: "square millimeter",
       pluralName: "square millimeters",
-      value: 0.001,
+      value: 1e-6,
     },
     cm2: {
       name: "square centimeter",
       pluralName: "square centimeters",
-      value: 0.01,
+      value: 1e-4,
     },
     km2: {
       name: "square kilometer",
       pluralName: "square kilometers",
-      value: 1000,
+      value: 1e6,
     },
     in2: {
       name: "square inch",
       pluralName: "square inches",
-      value: 0.0254,
+      value: 0.00064516,
     },
     ft2: {
       name: "square foot",
       pluralName: "square feet",
-      value: 0.3048,
+      value: 0.09290304,
     },
     yd2: {
       name: "square yard",
       pluralName: "square yards",
-      value: 0.9144,
+      value: 0.83612736,
     },
     mi2: {
       name: "square mile",
       pluralName: "square miles",
-      value: 1609.344
+      value: 2589988.110336
     },
   },
   volume: {
@@ -92,37 +92,37 @@ const units = {
     mm3: {
       name: "cubic millimeter",
       pluralName: "cubic millimeters",
-      value: 0.001,
+      value: 1e-9,
     },
     cm3: {
       name: "cubic centimeter",
       pluralName: "cubic centimeters",
-      value: 0.01,
+      value: 1e-6,
     },
     km3: {
       name: "cubic kilometer",
       pluralName: "cubic kilometers",
-      value: 1000,
+      value: 1e-9,
     },
     in3: {
       name: "cubic inch",
       pluralName: "cubic inches",
-      value: 0.0254,
+      value: 0.000016387064,
     },
     ft3: {
       name: "cubic foot",
       pluralName: "cubic feet",
-      value: 0.3048,
+      value: 0.028316846592,
     },
     yd3: {
       name: "cubic yard",
       pluralName: "cubic yards",
-      value: 0.9144,
+      value: 0.764554857984,
     },
     mi3: {
       name: "cubic mile",
       pluralName: "cubic miles",
-      value: 1609.344
+      value: 4168181825.44058,
     },
   },
   weight: {
